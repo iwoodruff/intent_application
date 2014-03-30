@@ -1,18 +1,28 @@
 var CalendarDate = Backbone.Model.extend({
   next_month: function(){
     var month = this.get('month')
-    month += 1
+    if (month == 11){
+      month = 0
+    } else {
+      month += 1
+    }
     this.set('month', month)
+
   },
 
   prev_month: function(){
     var month = this.get('month')
-    month -= 1
+    if (month == 0){
+      month = 11
+    } else {
+      month -= 1
+    }
     this.set('month', month)
   },
 
   select_day: function(day){
     console.log(day)
+    console.log('yo!')
 
     var clicked_day = day.getAttribute('id').split('-')
     var year = clicked_day[0]
@@ -25,21 +35,23 @@ var CalendarDate = Backbone.Model.extend({
     this.set('date', date.getDate())
     this.set('month', date.getMonth())
     this.set('year', date.getYear() + 1900)
-
   }
 })
 
 var MonthView = Backbone.View.extend({
   initialize: function(){
     this.listenTo(this.model, 'change', this.update)
-    this.render_nav()
+    this.render()
   },
 
   update: function(){
     this.calendar_body().innerHTML = '';
     this.calendar_sidebar().innerHTML = '';
     this.current_month().innerHTML = '';
-    this.render_content();
+    _.each (document.getElementsByClassName('calendar_button'), function(button){
+      button.innerHTML= '';
+    })
+    this.render();
   },
 
   calendar_nav: function(){
@@ -69,9 +81,11 @@ var MonthView = Backbone.View.extend({
     this.template_current_month(self.model.attributes);
   },
 
-  render_nav: function(){
+  render: function(){
     var self = this
     var model_proto = this.model.__proto__
+
+    this.template_body(self.model.attributes);
 
     _.each (model_proto, function(value, prop){
       if (prop == 'next_month') {
@@ -93,10 +107,9 @@ var MonthView = Backbone.View.extend({
         })
         self.calendar_header().appendChild($prev)
       } else if (prop == 'select_day') {
-        var $days = document.getElementsByTagName('td')
-        console.log($days)
+        var $days = document.getElementsByClassName('day')
+
         _.each ($days, function(day){
-          console.log('hi')
           day.addEventListener('click', function(){
             self.model[prop](this)
           })
@@ -109,14 +122,15 @@ var MonthView = Backbone.View.extend({
     $current_month.class = 'current_month'
     self.calendar_header().appendChild($current_month)
 
-    this.render_content()
+    this.template_sidebar(self.model.attributes);
+    this.template_current_month(self.model.attributes);
   },
 
   template_sidebar: function(attrs){
     var self = this
     var $day_display = document.createElement('div')
     $day_display.id = 'day_display'
-    $day_display.innerHTML = '<h1 id="day_display">' + this.get_month(attrs.month) + '</h1>'
+    $day_display.innerHTML = '<h2 id="day_display">' + this.get_month(attrs.month) + '</h2>'
     self.calendar_sidebar().appendChild($day_display)
 
     var $date_display = document.createElement('div')
@@ -126,7 +140,7 @@ var MonthView = Backbone.View.extend({
   },
 
   template_current_month: function(attrs){
-    this.current_month().innerHTML = '<h3 id="current_month">'+ this.get_day(attrs.day) +'</h3>'
+    this.current_month().innerHTML = '<h3 id="current_month">'+ this.get_month(attrs.month) +'</h3>'
   },
 
   template_body: function(attrs){
@@ -134,45 +148,32 @@ var MonthView = Backbone.View.extend({
     var total_days = this.total_days(attrs.month, attrs.year)
     var current_month = this.get_month(attrs.month)
     var overflow = this.first_day(attrs.year, attrs.month)
+    var next_overflow = this.last_day(attrs.year, attrs.month, total_days)
+
     var weeks = Math.ceil(total_days / 7)
-
-    if (attrs.month == 0){
-      // if its January, the last month will be December of the prior year
-      var prev_total = self.total_days(12, (attrs.year - 1))
-      var overflow_days = prev_total - overflow
-    } else {
-      // days in past month & those overflowing into current month
-      var prev_total = self.total_days((attrs.month - 1), attrs.year)
-      var overflow_days = prev_total - overflow
-    }
-
+    // days in past month & those overflowing into current
+    var prev_total = self.total_days((attrs.month - 1), attrs.year)
+    var overflow_days = prev_total - overflow
+    var overflow_next_days = 7 - next_overflow
     var month_array = []
 
-    month_array.push('<table id="'+attrs.year+'"><tr class="day_initials">')
+    month_array.push('<table id="calendar_view"><tr id="day_initials">')
 
     _.each (self.get_day_initials(), function(initial){
       month_array.push('<td class="day_initial">'+initial+'</td>')
     })
 
-    if (total_days % 7 == 0) {
-      // the month begins on monday the 1st
-      month_array.push('</tr><tr id='+attrs.year+'-'+attrs.month+' class="week"><td id="'+attrs.year+'-'+attrs.month+'-1" class"calendar_day">1</td>')
-    } else {
-      // it is carrying days over from the prior month
+    month_array.push('</tr><tr id='+attrs.year+'-'+(attrs.month - 1)+' class="week">')
 
-
-      month_array.push('</tr><table id="'+attrs.year+'-'+(attrs.month - 1)+'"><tr id='+attrs.year+'-'+(attrs.month - 1)+' class="week">')
-
-      for (i = overflow_days + 1; i <= prev_total; i++){
-        // creates <td> for first week, including days carried over from past month
-        month_array.push('<td id="'+attrs.year+'-'+attrs.month+'-'+i+'" class"calendar_day">'+i+'</td>')
-      }
-      for (i = 1; i <= (7 - overflow);  i++){
-        // completes the first week with days from the current month
-        month_array.push('<td id="'+attrs.year+'-'+attrs.month+'-'+i+'" class"calendar_day">'+i+'</td>')
-      }
-      month_array.push('</tr>')
+    for (i = overflow_days + 1; i <= prev_total; i++){
+      // creates <td> for first week, including days carried over from past month
+      month_array.push('<td id="'+attrs.year+'-'+attrs.month+'-'+i+'" class="day"></td>')
     }
+    for (i = 1; i <= (7 - overflow);  i++){
+      // completes the first week with days from the current month
+      month_array.push('<td id="'+attrs.year+'-'+attrs.month+'-'+i+'" class="day">'+i+'</td>')
+    }
+    month_array.push('</tr>')
 
     for (i = 0; i < weeks; i++){
       // creates <td> for the rest of the month, beginning where the prior ended
@@ -183,14 +184,19 @@ var MonthView = Backbone.View.extend({
         // for all middle weeks
         month_array.push('<tr id='+attrs.year+'-'+attrs.month+' class="week">')
         for (j = week_start; j < week_stop; j++){
-          month_array.push('<td id="'+attrs.year+'-'+attrs.month+'-'+j+'" class"calendar_day">'+j+'</td>')
+          month_array.push('<td id="'+attrs.year+'-'+attrs.month+'-'+j+'" class="day">'+j+'</td>')
         }
         month_array.push('</tr>')
       } else {
         // generates days for the final week
         month_array.push('<tr id='+attrs.year+'-'+attrs.month+' class="week">')
         for (j = week_start; j <= total_days; j++){
-          month_array.push('<td id="'+attrs.year+'-'+attrs.month+'-'+j+'" class"calendar_day">'+j+'</td>')
+          month_array.push('<td id="'+attrs.year+'-'+attrs.month+'-'+j+'" class="day">'+j+'</td>')
+        }
+
+        for (i = 1; i < overflow_next_days; i++){
+          // creates <td> for the beginning of next month flowing into the current month
+          month_array.push('<td id="'+attrs.year+'-'+(attrs.month + 1)+'-'+i+'" class="day"></td>')
         }
         month_array.push('</tr></table>')
       }
@@ -198,11 +204,30 @@ var MonthView = Backbone.View.extend({
 
     var month_string = month_array.join('')
     this.calendar_body().innerHTML = month_string
+
+    this.calendar_style_helper(attrs)
+  },
+
+  calendar_style_helper: function(attrs){
+    var $td = document.getElementsByTagName('td')
+    for (i = 0; i < $td.length; i+=7) {
+      $td[i].style.borderLeft = '0px'
+    }
+
+    var $today = document.getElementById(''+attrs.year+'-'+attrs.month+'-'+attrs.date+'')
+
+    $today.style.backgroundColor = 'red'
+    $today.style.color = 'white'
   },
 
   first_day: function(year, month){
     var day_one = new Date(year, month, 1)
     return day_one.getDay()
+  },
+
+  last_day: function(year, month, end){
+    var day_last = new Date(year, month, end)
+    return day_last.getDay()
   },
 
   total_days: function(month, year){

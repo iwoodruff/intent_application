@@ -1,19 +1,131 @@
 /* html5doctor.com Reset v1.6.1 - http://cssreset.com */
 html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address,cite,code,del,dfn,em,img,ins,kbd,q,samp,small,strong,sub,sup,var,b,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}nav ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:none}a{margin:0;padding:0;font-size:100%;vertical-align:baseline;background:transparent}ins{background-color:#ff9;color:#000;text-decoration:none}mark{background-color:#ff9;color:#000;font-style:italic;font-weight:bold}del{text-decoration:line-through}abbr[title],dfn[title]{border-bottom:1px dotted;cursor:help}table{border-collapse:collapse;border-spacing:0}hr{display:block;height:1px;border:0;border-top:1px solid #ccc;margin:1em 0;padding:0}input,select{vertical-align:middle}
 
-.week {
-  display: block;
-  border: 1px solid red;
+h1 {
+  font-family: helvetica;
+  font-size: 11em;
+  background-color: #565656;
+  color: transparent;
+  text-shadow: 0px 2px 3px rgba(255, 255, 255, 0.5);
+  -webkit-background-clip: text;
+     -moz-background-clip: text;
+          background-clip: text;
 }
 
-.calendar_day {
-  position: relative;
-  display: block;
-  margin-left: 2px;
-  border: 1px solid red;
+h2 {
+  font-family: helvetica;
+}
+
+h3 {
+  font-family: helvetica;
+  font-weight: 300;
+  font-size: 1.4em;
 }
 
 td {
-  border: 1px solid orange;
-  margin: 3px, 3px, 3px, 3px;
+  font-family: helvetica;
 }
+
+
+
+
+#source_img {
+  position: absolute;
+  opacity: 0.5;
+  z-index: 0;
+}
+
+#calendar {
+  margin-top: 271px;
+  margin-left: 259px;
+  width: 772px;
+  height: 334px;
+  position: absolute;
+  z-index: 100;
+  border: 1px solid black;
+  border-radius: 11px;
+}
+
+/*==================*/
+
+#calendar_header {
+  position: absolute;
+  margin-left: 331px;
+  margin-top: 6px;
+  width: 434px;
+  height: 72px;
+  border: 1px solid red;
+  border-radius: 6px 6px 0px 0px;
+}
+
+/*==================*/
+
+#calendar_sidebar {
+  position: absolute;
+  margin-top: 6px;
+  margin-left: 6px;
+  border-radius: 6px;
+  width: 319px;
+  height: 320px;
+  border: 1px solid red;
+}
+
+#day_display {
+
+  height: 58px;
+  width: 319px;
+  border-radius: 6px 6px 0px 0px;
+}
+
+#date_display {
+  height: 258px;
+  width: 319px;
+  border-radius: 0px 0px 6px 6px;
+}
+
+/*==================*/
+
+#calendar_body {
+/*  border: 1px solid blue;*/
+  width: 435px;
+  height: 247px;
+  border-radius: 0px 0px 6px 6px;
+  margin-left: 334px;
+  margin-top: 80px;
+}
+
+#calendar_view {
+  margin-left: 4px;
+  width: 425px;
+  height: 211px;
+  text-align: center;
+}
+
+#day_initials {
+/*  width: 430px;*/
+  height: 27px;
+  color: red;
+  font-weight: 700;
+}
+
+#day_initials td {
+  padding-top: 8px;
+  font-size: 1.07em;
+}
+
+.week {
+  height: 27px;
+  font-size: 1.1em;
+  font-weight: 700;
+  color: grey;
+}
+
+.week td {
+  padding-top: 7px;
+}
+
+td {
+  border-left: 1px dashed grey;
+}
+
+

@@ -96,11 +96,11 @@ td {
   height: 44px;
   width: 319px;
   border-radius: 5px 5px 0px 0px;
-  background: -webkit-gradient(linear, 0%, 0%, 100%, 0%, from(#FF4141), to(#871D1D));
-  background: -webkit-linear-gradient(top, #FF4141, #871D1D);
-  background: -moz-linear-gradient(top, #FF4141, #871D1D);
-  background: -ms-linear-gradient(top, #FF4141, #871D1D);
-  background: -o-linear-gradient(top, #FF4141, #871D1D);
+  background: -webkit-linear-gradient(to bottom, #D73232, 30% #DE3434, #942020);
+  background: -moz-linear-gradient(to bottom, #D73232, 30% #DE3434, #942020);
+  background: -ms-linear-gradient(to bottom, #D73232, 30% #DE3434, #942020);
+  background: -o-linear-gradient(to bottom, #D73232, 30% #DE3434, #942020);
+  background: linear-gradient(to bottom, #D73232, #DE3434 30%, #942020);
   /*opacity: 0.0;*/
   z-index: 20;
   box-shadow: inset 0px 1px 0px 0px rgba(255,255, 255 , 0.5);
@@ -139,9 +139,9 @@ td {
 #ribbing {
   width: 319px;
   margin-top: 55px;
-  border-bottom: 2px dashed #D93434;
-  border-top: 1px solid rgba(0,0,0, 0.2);
-  box-shadow: 0px 1px 0px 0px rgba(0,0,0, 0.5);
+  border-top: 1px dashed #D93434;
+  border-bottom: 1px solid rgba(0,0,0, 0.2);
+  box-shadow: 0px 4px 3px 1px rgba(0,0,0, 0.5);
   position: absolute;
   z-index: 21;
 }

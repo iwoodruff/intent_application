@@ -80,7 +80,8 @@ var AnimateView = Backbone.View.extend({
     
     setTimeout(function(){
       clearInterval(timer)
-      $('#sprite_window').fadeOut(1500)
+      $('#sneaky_sprite')
+        .css('margin-left', -800)
     }, 7000)
   },
 

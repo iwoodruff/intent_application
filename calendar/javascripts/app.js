@@ -56,7 +56,7 @@ var MonthView = Backbone.View.extend({
   check: function(){
     var self = this
 
-    if (calendar.click_count.length == 2){
+    if (calendar.click_count.length % 2 == 0){
 
       animate.begin()
 

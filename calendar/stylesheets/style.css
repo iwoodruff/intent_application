@@ -43,7 +43,7 @@ td {
   height: 50px;
   margin-left: 150px;
   margin-top: 150px;
-  z-index: 100;
+  z-index: 110;
   box-shadow: 0px 2px 2px 0px rgba(255,255, 255 , 1);
 }
 
@@ -321,15 +321,22 @@ td {
   margin-top: 500px;
   margin-left: -800px;
   position: absolute;
-  display:block;
   overflow: hidden;
-  z-index: 1000;
+  z-index: 200;
 }
 
 #dino_test {
   position: absolute;
 }
 
+.folliage {
+  position: absolute;
+  z-index: 80;
+}
 
+#folliage_top_img {
+  pointer-events: none;
+  z-index: 100;
+}
 
 

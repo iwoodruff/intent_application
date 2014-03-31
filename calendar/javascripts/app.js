@@ -57,7 +57,8 @@ var MonthView = Backbone.View.extend({
     var self = this
 
     if (calendar.click_count.length == 2){
-      window.animate = new AnimateView()
+
+      animate.begin()
 
       setTimeout(function(){
         self.update()
@@ -312,15 +313,16 @@ var CalendarView = Backbone.View.extend({
       year: (today.getYear() + 1900),
     });
 
-    var month_view = new MonthView({
+    window.month_view = new MonthView({
       model: calendar_date
     });
+
+    window.animate = new AnimateView()
 
     var $calendar_shadow = document.createElement('div')
     $calendar_shadow.id = 'calendar_shadow'
     document.getElementById('calendar').parentNode.appendChild($calendar_shadow)
 
-    this.sneaky_sneaky()
     this.switch_button()
   },
 
@@ -345,13 +347,6 @@ var CalendarView = Backbone.View.extend({
         $button.innerHTML = '<h2>IMG<h2>'
       }
     })
-  },
-
-  sneaky_sneaky: function(){
-    var $sneaky_sprite = document.createElement('div')
-    $sneaky_sprite.id = 'sneaky_sprite'
-    $sneaky_sprite.innerHTML = '<img id="sprite_img" src="images/dino_sprite_transparent_2.png">'
-    document.getElementById('calendar').parentNode.appendChild($sneaky_sprite)
   }
 
 })

@@ -1,25 +1,25 @@
 /* html5doctor.com Reset v1.6.1 - http://cssreset.com */
 html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address,cite,code,del,dfn,em,img,ins,kbd,q,samp,small,strong,sub,sup,var,b,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}nav ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:none}a{margin:0;padding:0;font-size:100%;vertical-align:baseline;background:transparent}ins{background-color:#ff9;color:#000;text-decoration:none}mark{background-color:#ff9;color:#000;font-style:italic;font-weight:bold}del{text-decoration:line-through}abbr[title],dfn[title]{border-bottom:1px dotted;cursor:help}table{border-collapse:collapse;border-spacing:0}hr{display:block;height:1px;border:0;border-top:1px solid #ccc;margin:1em 0;padding:0}input,select{vertical-align:middle}
 
+body {
+  background-color: #EEEEEE;
+}
+
 h1 {
   font-family: helvetica;
-  font-size: 11em;
-  background-color: #565656;
-  color: transparent;
-  text-shadow: 0px 2px 3px rgba(255, 255, 255, 0.5);
-  -webkit-background-clip: text;
-     -moz-background-clip: text;
-          background-clip: text;
+  font-size: 10.55em;
 }
 
 h2 {
   font-family: helvetica;
+  font-size: 1.60em;
+  font-weight: 400;
 }
 
 h3 {
   font-family: helvetica;
-  font-weight: 300;
-  font-size: 1.4em;
+  font-weight: 400;
+  font-size: 1.55em;
 }
 
 td {
@@ -27,75 +27,241 @@ td {
 }
 
 
-
-
 #source_img {
   position: absolute;
-  opacity: 0.5;
+  opacity: 0.0;
   z-index: 0;
 }
 
+#switch_colors {
+  position: absolute;
+  background: red;
+  width: 100px;
+  height: 50px;
+  margin-left: 50%;
+  margin-top: 220px;
+  z-index: 100;
+}
+
 #calendar {
-  margin-top: 271px;
-  margin-left: 259px;
+  margin-top: 272px;
+  margin-left: 260px;
   width: 772px;
   height: 334px;
   position: absolute;
-  z-index: 100;
-  border: 1px solid black;
+  z-index: 90;
   border-radius: 11px;
+  border-top: 1px solid black;
+  background-color: #333333;
+  box-shadow: inset 0px 2px 2px 0px rgba(255,255, 255 , 0.5);
 }
 
-/*==================*/
-
-#calendar_header {
+#calendar_shadow {
+  margin-top: 273px;
+  margin-left: 260px;
+  width: 772px;
+  height: 334px;
   position: absolute;
-  margin-left: 331px;
-  margin-top: 6px;
-  width: 434px;
-  height: 72px;
-  border: 1px solid red;
-  border-radius: 6px 6px 0px 0px;
+  border-radius: 11px;
+  box-shadow: 0px 2px 7px 0px rgba(0,0,0, 1);
 }
 
-/*==================*/
+
+
+
+
+/*==============================*/
+
+/*==============================*/
+
+/*==============================*/
+
+
+
+
 
 #calendar_sidebar {
   position: absolute;
   margin-top: 6px;
   margin-left: 6px;
-  border-radius: 6px;
+  border-radius: 6px 6px 3px 3px;
   width: 319px;
-  height: 320px;
-  border: 1px solid red;
+  height: 321px;
+  box-shadow: 0px 2px 2px 0px #000;
+  background-color: #F0F2F4;
 }
 
 #day_display {
-
-  height: 58px;
+  position: absolute;
+  height: 44px;
   width: 319px;
-  border-radius: 6px 6px 0px 0px;
+  border-radius: 5px 5px 0px 0px;
+  background: -webkit-gradient(linear, 0%, 0%, 100%, 0%, from(#FF4141), to(#871D1D));
+  background: -webkit-linear-gradient(top, #FF4141, #871D1D);
+  background: -moz-linear-gradient(top, #FF4141, #871D1D);
+  background: -ms-linear-gradient(top, #FF4141, #871D1D);
+  background: -o-linear-gradient(top, #FF4141, #871D1D);
+  /*opacity: 0.0;*/
+  z-index: 20;
+  box-shadow: inset 0px 1px 0px 0px rgba(255,255, 255 , 0.5);
+}
+
+#day_display h2 {
+  color: white;
+  text-align: center;
+  padding-top: 16px;
+  z-index: 20;
+  /*box-shadow: 0px 2px 15px 0px rgba(0,0,0,0.5);*/
 }
 
 #date_display {
-  height: 258px;
+  margin-top: 46px;
+  position: absolute;
+  background-color: #F0F2F4;
+  height: 275px;
   width: 319px;
-  border-radius: 0px 0px 6px 6px;
+  border-radius: 0px 0px 4px 4px;
 }
 
-/*==================*/
+#date_display h1 {
+  margin-top: 55px;
+  text-align: center;
+  letter-spacing: -8px;
+  background-color: black;
+  color: transparent;
+  text-shadow: 0px 5px 3px rgba(255, 255, 255, 0.20);
+  -webkit-background-clip: text;
+     -moz-background-clip: text;
+          background-clip: text;
+  z-index: 21;
+}
+
+#ribbing {
+  width: 319px;
+  margin-top: 55px;
+  border-bottom: 2px dashed #D93434;
+  border-top: 1px solid rgba(0,0,0, 0.2);
+  box-shadow: 0px 1px 0px 0px rgba(0,0,0, 0.5);
+  position: absolute;
+  z-index: 21;
+}
+
+.day_pages {
+  margin-top: 10px;
+  background-color: #F7F7F7;
+  position: absolute;
+  height: 258px;
+  width: 319px;
+  border-radius: 0px 0px 4px 4px;
+}
+
+#page_one {
+  margin-top: 10px;
+  border-top: 1px dashed orange;
+  height: 252px;
+  box-shadow: 0px 1px 2px 2px rgba(0,0,0,0.3);
+  z-index: 10;
+}
+
+#page_two {
+  margin-top: 12px;
+  height: 254px;
+  border-top: 1px solid black;
+  box-shadow: 0px 1px 2px 2px rgba(0,0,0,0.3);
+  z-index: 9;
+}
+
+#page_three {
+  margin-top: 14px;
+  height: 256px;
+  border-top: 1px solid black;
+  box-shadow: 0px 1px 2px 2px rgba(0,0,0,0.3);
+  z-index: 8;
+}
+
+
+
+
+
+
+/*==============================*/
+
+/*==============================*/
+
+/*==============================*/
+
+
+
+
+
+
+#calendar_header {
+  position: absolute;
+  margin-left: 332px;
+  margin-top: 6px;
+  width: 433px;
+  height: 74px;
+  border-radius: 4px 4px 0px 0px;
+  background-color: white;
+}
+
+#current_month {
+  margin-top: 25px;
+  width: 435px;
+  text-align: center;
+  color: #787779;
+}
+
+#next_month {
+  margin-top: 26px;
+  position: absolute;
+  margin-left: 394px;
+  z-index: 100;
+  display: block;
+}
+
+#prev_month {
+  margin-top: 26px;
+  position: absolute;
+  margin-left: 31px;
+  z-index: 100;
+  display: block;
+}
+
+.calendar_button h3 {
+  color: #CCCCCC;
+  font-weight: 600;
+  font-size: 1.25em;
+}
+
+
+
+
+
+
+/*==============================*/
+
+/*==============================*/
+
+/*==============================*/
+
+
+
+
+
 
 #calendar_body {
 /*  border: 1px solid blue;*/
-  width: 435px;
-  height: 247px;
-  border-radius: 0px 0px 6px 6px;
-  margin-left: 334px;
-  margin-top: 80px;
+  width: 433px;
+  height: 248px;
+  border-radius: 0px 0px 4px 4px;
+  margin-left: 332px;
+  margin-top: 79px;
+  background-color: white;
 }
 
 #calendar_view {
-  margin-left: 4px;
+  margin-left: 7px;
   width: 425px;
   height: 211px;
   text-align: center;
@@ -117,7 +283,7 @@ td {
   height: 27px;
   font-size: 1.1em;
   font-weight: 700;
-  color: grey;
+  color: #99999C;
 }
 
 .week td {
@@ -125,7 +291,6 @@ td {
 }
 
 td {
-  border-left: 1px dashed grey;
+  border-left: 1px dashed #E8E8E8;
 }
-
 

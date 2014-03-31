@@ -40,43 +40,41 @@ var CalendarDate = Backbone.Model.extend({
     this.set('month', date.getMonth())
     this.set('year', date.getYear() + 1900)
 
-    this.flip_page()
+    // the calendar view keeps track of how many times a new day has been selected. On the 3rd time, it will animate.
+    calendar.click_count.push(1)
 
   }
 })
 
 var MonthView = Backbone.View.extend({
   initialize: function(){
-    this.listenTo(this.model, 'change', this.update)
+    this.listenTo(this.model, 'change', this.check)
     this.render()
     this.removed_pages = 0
   },
 
+  check: function(){
+    var self = this
+
+    if (calendar.click_count.length == 2){
+      window.animate = new AnimateView()
+
+      setTimeout(function(){
+        self.update()
+      }, 2500)
+    } else {
+      self.update()
+    }
+  },
+
   update: function(){
+    var self = this
+
     this.calendar_body().innerHTML = '';
     this.calendar_sidebar().innerHTML = '';
     this.calendar_header().innerHTML = '';
     this.render();
-  },
 
-  calendar_body: function(){
-    return document.getElementById('calendar_body');
-  },
-
-  calendar_header: function(){
-    return document.getElementById('calendar_header');
-  },
-
-  calendar_sidebar: function(){
-    return document.getElementById('calendar_sidebar');
-  },
-
-  current_month: function(){
-    return document.getElementById('current_month');
-  },
-
-  date_display: function(){
-    return document.getElementById('date_display')
   },
 
   render: function(){
@@ -127,19 +125,6 @@ var MonthView = Backbone.View.extend({
     this.template_sidebar(self.model.attributes);
     this.template_current_month(self.model.attributes);
 
-    $('#switch_colors').on('click', function(){
-      if ($('#switch_colors').hasClass('clicked')){
-        $('#switch_colors').removeClass('clicked')
-        $('#calendar').css('opacity', 1.0).css('z-index', 100)
-        $('#source_img').css('opacity', 0.2).css('z-index', 10)
-        $('#switch_colors').prepend('<h2>MOCK-UP<h2>')
-      } else {
-        $('#switch_colors').addClass('clicked')
-        $('#calendar').css('opacity', 0.0).css('z-index', 1000)
-        $('#source_img').css('opacity', 1.0).css('z-index', 10)
-        $('#switch_colors').prepend('<h2>SOURCE<h2>')
-      }
-    })
   },
 
   template_sidebar: function(attrs){
@@ -244,10 +229,10 @@ var MonthView = Backbone.View.extend({
     var month_string = month_array.join('')
     this.calendar_body().innerHTML = month_string
 
-    this.calendar_style_helper(attrs)
+    this.style_helper(attrs)
   },
 
-  calendar_style_helper: function(attrs){
+  style_helper: function(attrs){
     var $td = document.getElementsByTagName('td')
     for (i = 0; i < $td.length; i+=7) {
       $td[i].style.borderLeft = '0px'
@@ -255,8 +240,8 @@ var MonthView = Backbone.View.extend({
 
     var $today = document.getElementById(''+attrs.year+'-'+attrs.month+'-'+attrs.date+'')
 
-    // $today.style.backgroundColor = '#E43737'
-    // $today.style.color = 'white'
+    $today.style.backgroundColor = '#E43737'
+    $today.style.color = 'white'
   },
 
   first_day: function(year, month){
@@ -286,13 +271,34 @@ var MonthView = Backbone.View.extend({
     var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     return months[ month ]
   },
+
+  calendar_body: function(){
+    return document.getElementById('calendar_body');
+  },
+
+  calendar_header: function(){
+    return document.getElementById('calendar_header');
+  },
+
+  calendar_sidebar: function(){
+    return document.getElementById('calendar_sidebar');
+  },
+
+  current_month: function(){
+    return document.getElementById('current_month');
+  },
+
+  date_display: function(){
+    return document.getElementById('date_display')
+  }
 })
+
 
 var CalendarView = Backbone.View.extend({
   initialize: function(){
     var self = this;
     this.render();
-    this.views = [];
+    this.click_count = [];
   },
 
   render: function(){
@@ -310,12 +316,42 @@ var CalendarView = Backbone.View.extend({
       model: calendar_date
     });
 
-    self.$el.append(month_view.$el);
-
     var $calendar_shadow = document.createElement('div')
     $calendar_shadow.id = 'calendar_shadow'
     document.getElementById('calendar').parentNode.appendChild($calendar_shadow)
 
+    this.sneaky_sneaky()
+    this.switch_button()
+  },
+
+  switch_button: function(){
+    var $button = document.getElementById('switch_colors')
+    var $calendar = document.getElementById('calendar')
+    var $source_img = document.getElementById('source_img')
+
+    $button.addEventListener('click', function(e){
+      e.preventDefault()
+      if ($button.className == 'clicked'){
+        $button.className = ''
+        $calendar.style.opacity = '1.0'
+        $source_img.style.opacity = '0.0'
+        $button.innerHTML = ''
+        $button.innerHTML = '<h2>HTML<h2>'
+      } else {
+        $button.className = 'clicked'
+        $calendar.style.opacity = '0.0'
+        $source_img.style.opacity = '1.0'
+        $button.innerHTML = ''
+        $button.innerHTML = '<h2>IMG<h2>'
+      }
+    })
+  },
+
+  sneaky_sneaky: function(){
+    var $sneaky_sprite = document.createElement('div')
+    $sneaky_sprite.id = 'sneaky_sprite'
+    $sneaky_sprite.innerHTML = '<img id="sprite_img" src="images/dino_sprite_transparent_2.png">'
+    document.getElementById('calendar').parentNode.appendChild($sneaky_sprite)
   }
 
 })

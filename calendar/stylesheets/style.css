@@ -3,6 +3,7 @@ html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address
 
 body {
   background-color: #EEEEEE;
+  /*overflow: hidden;*/
 }
 
 h1 {
@@ -35,12 +36,15 @@ td {
 
 #switch_colors {
   position: absolute;
-  background: red;
+  background: #E43737;
+  opacity: 0.8;
+  border-radius: 10px;
   width: 100px;
   height: 50px;
-  margin-left: 50%;
-  margin-top: 220px;
+  margin-left: 150px;
+  margin-top: 150px;
   z-index: 100;
+  box-shadow: 0px 2px 2px 0px rgba(255,255, 255 , 1);
 }
 
 #calendar {
@@ -57,10 +61,10 @@ td {
 }
 
 #calendar_shadow {
-  margin-top: 273px;
+  margin-top: 272px;
   margin-left: 260px;
   width: 772px;
-  height: 334px;
+  height: 333px;
   position: absolute;
   border-radius: 11px;
   box-shadow: 0px 2px 7px 0px rgba(0,0,0, 1);
@@ -96,11 +100,11 @@ td {
   height: 44px;
   width: 319px;
   border-radius: 5px 5px 0px 0px;
-  background: -webkit-linear-gradient(to bottom, #D73232, 30% #DE3434, #942020);
-  background: -moz-linear-gradient(to bottom, #D73232, 30% #DE3434, #942020);
-  background: -ms-linear-gradient(to bottom, #D73232, 30% #DE3434, #942020);
-  background: -o-linear-gradient(to bottom, #D73232, 30% #DE3434, #942020);
-  background: linear-gradient(to bottom, #D73232, #DE3434 30%, #942020);
+  background: -webkit-linear-gradient(to bottom, #D73232, 32% #DE3434, #942020);
+  background: -moz-linear-gradient(to bottom, #D73232, 32% #DE3434, #942020);
+  background: -ms-linear-gradient(to bottom, #D73232, 32% #DE3434, #942020);
+  background: -o-linear-gradient(to bottom, #D73232, 32% #DE3434, #942020);
+  background: linear-gradient(to bottom, #D73232, #DE3434 32%, #942020);
   /*opacity: 0.0;*/
   z-index: 20;
   box-shadow: inset 0px 1px 0px 0px rgba(255,255, 255 , 0.5);
@@ -293,4 +297,39 @@ td {
 td {
   border-left: 1px dashed #E8E8E8;
 }
+
+
+
+
+/*==============================*/
+
+/*==============================*/
+
+/*==============================*/
+
+
+
+#sprite_img {
+  width: 800px;
+  position: absolute;
+}
+
+#sneaky_sprite {
+  padding-top: 100px;
+  height: 350px;
+  width: 800px;
+  margin-top: 500px;
+  margin-left: -800px;
+  position: absolute;
+  display:block;
+  overflow: hidden;
+  z-index: 1000;
+}
+
+#dino_test {
+  position: absolute;
+}
+
+
+
 
